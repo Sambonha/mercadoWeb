@@ -1,0 +1,112 @@
+<!-- TOASTS -->
+<div id="toast-container" style="
+  position: fixed; top: 20px; right: 20px; z-index: 1055;
+  display: flex; flex-direction: column; gap: 10px;">
+</div>
+
+<style>
+@keyframes fadeIn { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
+@keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
+
+.card-anim { transition: transform .3s, box-shadow .3s; }
+.card-anim:hover { transform: translateY(-4px); box-shadow:0 8px 16px rgba(0,0,0,0.25); }
+.btn-anim { transition: all .2s; }
+.btn-anim:hover { transform: scale(1.1); opacity: .9; }
+
+/* Modal */
+#modal-confirm {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;
+  z-index:2000; animation: fadeIn .4s ease;
+}
+.modal-content {
+  background: #2c2c2c; color: white; padding: 25px; border-radius: 10px;
+  text-align:center; width: 350px; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+</style>
+
+<!-- MODAL DE CONFIRMAÇÃO -->
+<div id="modal-confirm">
+  <div class="modal-content">
+    <h5>⚠️ Confirmar Exclusão</h5>
+    <p>Deseja realmente excluir <b>{{ produtoParaExcluir?.nome }}</b>?</p>
+    <div style="margin-top:20px;">
+      <button class="btn btn-danger btn-anim" (click)="deletarProdutoConfirmado()">Sim, excluir</button>
+      <button class="btn btn-secondary btn-anim" (click)="fecharModal()" style="margin-left:10px;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div style="padding: 30px; background-color:#1e1e1e; min-height:100vh; color:white;">
+
+  <h2 style="text-align:center; color:#00bcd4; font-weight:600; margin-bottom:25px;">
+    🛒 Gerenciamento de Produtos
+  </h2>
+
+  <!-- FORMULÁRIO -->
+  <form [formGroup]="cadastro" (ngSubmit)="cadastro.value.id ? alterarProduto() : criarProduto()"
+        style="background:#2c2c2c; padding:25px; border-radius:15px; margin:auto; max-width:900px; box-shadow:0 5px 20px rgba(0,0,0,0.3); margin-bottom:35px;">
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:20px;">
+      <div>
+        <label>Nome:</label>
+        <input formControlName="nome" type="text" class="form-control" placeholder="Ex: CAMISA POLO">
+      </div>
+      <div>
+        <label>Categoria:</label>
+        <input formControlName="categoria" type="text" class="form-control" placeholder="Ex: VESTUÁRIO">
+      </div>
+      <div>
+        <label>Preço:</label>
+        <input formControlName="preco" type="number" class="form-control">
+      </div>
+      <div>
+        <label>Quantidade:</label>
+        <input formControlName="quantidade" type="number" class="form-control">
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:25px;">
+      <button type="submit" class="btn btn-info btn-anim" style="margin-right:10px; padding:8px 25px; color:white;">
+        {{ cadastro.value.id ? '💾 Salvar Alterações' : '➕ Adicionar Produto' }}
+      </button>
+      <button type="button" class="btn btn-secondary btn-anim" (click)="cadastro.reset()">
+        🧹 Limpar
+      </button>
+    </div>
+  </form>
+
+  <!-- LISTAGEM -->
+  <h4 style="text-align:center; color:#ccc;">📋 Lista de Produtos</h4>
+  <div *ngIf="produtos().length === 0" style="text-align:center; color:#999;">Nenhum produto cadastrado.</div>
+
+  <div class="table-responsive card-anim" style="max-width:900px; margin:auto;">
+    <table class="table table-dark table-hover align-middle" style="border-radius:10px; overflow:hidden;">
+      <thead>
+        <tr style="background:#121212;">
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Qtd</th>
+          <th style="text-align:center;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of produtos()" style="animation: fadeIn 0.5s ease;">
+          <td>{{ p.nome }}</td>
+          <td>{{ p.categoria }}</td>
+          <td>R$ {{ p.preco | number:'1.2-2' }}</td>
+          <td>{{ p.quantidade }}</td>
+          <td style="text-align:center;">
+            <button class="btn btn-sm btn-outline-warning btn-anim" (click)="editarProduto(p)" title="Editar" style="margin-right:6px;">
+              ✏️
+            </button>
+            <button class="btn btn-sm btn-outline-danger btn-anim" (click)="confirmarExclusao(p)" title="Excluir">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
