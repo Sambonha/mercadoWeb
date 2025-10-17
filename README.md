@@ -1,59 +1,29 @@
-# MercadoWeb
+# 🛒 MercadoWeb - Front-end Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+**Front-end do sistema de gerenciamento de produtos para mercados**, construído com **Angular 16** e **Bootstrap 5**.  
+Integra-se com o back-end Spring Boot via REST API para realizar operações de **CRUD completo** em produtos. ----> Ele se conecta à **API Mercado** (backend em [Repositório da API Mercado](https://github.com/Sambonha/apiMercado)).
 
-## Development server
+---
 
-To start a local development server, run:
+## ✨ Funcionalidades
 
-```bash
-ng serve
-```
+- ✅ Adicionar, consultar, editar e excluir produtos  
+- ⚠️ Validações automáticas:  
+  - Exclusão apenas se estoque = 0  
+  - Preço não pode ser negativo  
+- 🔤 Conversão automática de **nome e categoria para maiúsculas**  
+- 🌑 Dark mode com fundo cinza escuro  
+- 📊 Lista de produtos responsiva, exibida em **cards animados**  
+- 🛎️ **Toasts animados** para notificações de sucesso, erro ou alerta  
+- 🖥️ Responsivo para desktop e mobile  
+- 🔗 Conexão com back-end Spring Boot via REST API  
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🛠 Tecnologias Utilizadas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Angular 16** (TypeScript, Reactive Forms)  
+- **Bootstrap 5** (Cards, Buttons, Modals, Toasts)  
+- **Bootstrap Icons**  
+- **HTML5 e CSS3**  
+- **HTTPClient** para comunicação com REST API  
